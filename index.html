@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Farmer's Market</title>
+  </head>
+  <body>
+    <header>
+      <h1>Farmer's Market</h1>
+    </header>
+
+    <main>
+      <section id="products">
+        <h2>Products</h2>
+
+        <section class="product-sub-section">
+          <h3>Available fruit</h3>
+          <ul id="available-fruit-list"></ul>
+        </section>
+      </section>
+
+      <section>
+        <h2>Items in cart</h2>
+
+        <p>There are <span id="cart-count">0</span> items in your cart.</p>
+        <div>Total: $<span id="cart-total">0</span></div>
+      </section>
+    </main>
+
+    <script>
+      const availableProductsData = {
+        fruit: [
+          {
+            product: 'Apple',
+            price: '0.40',
+          },
+          {
+            product: 'Banana',
+            price: '0.20',
+          },
+        ],
+        vegetables: [
+          {
+            product: 'Broccoli (per pound)',
+            price: '0.80',
+          },
+          {
+            product: 'Squash',
+            price: '1.00',
+          },
+          {
+            product: 'Carrot',
+            price: '0.30',
+          },
+        ],
+      }
+
+      function initializeProducts() {
+        const fruitListElement = document.getElementById('available-fruit-list')
+
+        availableProductsData.fruit.forEach((itemData) => {
+          const listItemElement = document.createElement('li')
+
+          listItemElement.innerText = itemData.product
+
+          fruitListElement.appendChild(listItemElement)
+
+          const buttonElement = document.createElement('button')
+
+          buttonElement.classList.add('add-to-cart')
+          buttonElement.dataset.product = itemData.product
+          buttonElement.dataset.price = itemData.price
+          buttonElement.innerText = 'Add +1 to cart'
+
+          listItemElement.appendChild(buttonElement)
+        })
+      }
+
+      function initializeCart() {
+        const itemsInCart = []
+
+        Array.from(document.querySelectorAll('.add-to-cart')).forEach(
+          (button) => {
+            button.addEventListener('click', () => {
+              console.log('clicked add to cart')
+
+              itemsInCart.push({
+                product: button.dataset.product,
+                price: Number(button.dataset.price),
+              })
+
+              const itemsInCartCount = itemsInCart.length
+
+              let cartTotalOnClick = 0
+
+              itemsInCart.forEach((item) => {
+                cartTotalOnClick = cartTotalOnClick += item.price
+              })
+
+              document.getElementById('cart-count').innerText = itemsInCartCount
+
+              document.getElementById(
+                'cart-total'
+              ).innerText = cartTotalOnClick.toFixed(2)
+            })
+          }
+        )
+      }
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOM ready')
+
+        initializeProducts()
+        initializeCart()
+      })
+    </script>
+  </body>
+</html>

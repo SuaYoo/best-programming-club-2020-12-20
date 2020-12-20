@@ -1,1 +1,29 @@
 # best-programming-club-2020-12-20
+
+## Assignment
+
+TBD
+
+### Getting the assignment
+
+[Fork this repository](https://guides.github.com/activities/forking/)
+
+[Install Prettier for VSCode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+### Completing the assignment
+
+Make sure to commit your changes as you're making progress on the assignment. You'll receive feedback on the commit messages. Remember, commit messages should be short and sweet, in present-tense with an imperative tone. For example:
+
+```
+rename cart variable
+```
+
+### Remember...
+
+- Google as much as you can, using the keywords you've learned. For example, search _"how to create HTML from javascript"_ or _"what is javascript forEach"_ or _"what is javascript dataset"_. MDN is a great keyword to include in your searches for reference materal, for example _"MDN javascript array"_.
+- Don't be afraid to commit code that's not working yet.
+- Don't get discouraged if you can't get it to work--focus on reading the existing code and making your best guess at what the code might look like.
+
+## The "answers"
+
+TBD
