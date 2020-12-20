@@ -2,7 +2,8 @@
 
 ## Assignment
 
-TBD
+1. BYO-Assignment: Add a new feature to the Farmer's Market shop that would improve the user experience.
+2. Come up with a nicer user interface design (in an Adobe program, [Figma](https://www.figma.com/), [Sketch](https://www.sketch.com/), etc)
 
 ### Getting the assignment
 
@@ -20,10 +21,6 @@ rename cart variable
 
 ### Remember...
 
+- Actively ask the Discord channels for help!
 - Google as much as you can, using the keywords you've learned. For example, search _"how to create HTML from javascript"_ or _"what is javascript forEach"_ or _"what is javascript dataset"_. MDN is a great keyword to include in your searches for reference materal, for example _"MDN javascript array"_.
 - Don't be afraid to commit code that's not working yet.
-- Don't get discouraged if you can't get it to work--focus on reading the existing code and making your best guess at what the code might look like.
-
-## The "answers"
-
-TBD
