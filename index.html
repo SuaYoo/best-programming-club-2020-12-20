@@ -137,7 +137,12 @@
               console.log(itemsInCart)
 
               const cartListItemElement = document.createElement('li')
-              cartListItemElement.innerText = `${button.dataset.product} ($${button.dataset.price})`
+              const latestCartItem = {
+                product: itemsInCart[itemsInCart.length - 1].product,
+                price:itemsInCart[itemsInCart.length - 1].price,
+              }
+
+              cartListItemElement.innerText = `${latestCartItem.product} ($${latestCartItem.price})`
               cartListElement.appendChild(cartListItemElement)
               
             })
