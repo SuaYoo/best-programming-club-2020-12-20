@@ -103,6 +103,13 @@
       function initializeCart() {
         const itemsInCart = []
 
+        const cartListElement = document.getElementById('cart-list')
+
+        // itemsInCart.forEach((item) => {
+        // const cartListItem = document.createElement('li')
+        // cartListItem.innerText = `${item.product} ($${item.price})`
+        // cartListElement.appendChild(cartListItem)
+
         Array.from(document.querySelectorAll('.add-to-cart')).forEach(
           (button) => {
             button.addEventListener('click', () => {
@@ -129,14 +136,10 @@
 
               console.log(itemsInCart)
 
-              const cartListElement = document.getElementById('cart-list')
-
-              itemsInCart.forEach((item) => {
-                const cartListItem = document.createElement('li')
-                cartListItem.innerText = `${item.product} ($${item.price})`
-                cartListElement.appendChild(cartListItem)
-                
-              });
+              const cartListItemElement = document.createElement('li')
+              cartListItemElement.innerText = `${button.dataset.product} ($${button.dataset.price})`
+              cartListElement.appendChild(cartListItemElement)
+              
             })
           }
         )
