@@ -122,18 +122,48 @@
                 price: Number(button.dataset.price),
               }
 
-              // Checking if the button product is already in the itemsInCart
-              for(var i = 0; i < itemsInCartCount; i++) {
-                if (itemsInCart[i].product == latestCartItem.product) {
-                  console.log('Already here!!!!!')
-                  break
-                }
+              // Check if the cart is empty
+              if (itemsInCart.length === 0) {
+                itemsInCart.push({
+                  product: latestCartItem.product,
+                  price: latestCartItem.price,
+                  count: 1,
+                })
+                console.log(latestCartItem.product, 'is the first item to be added')
+              // If the cart is not empty
+              } else {              
+                itemsInCart.forEach((item) => {
+                  if (item.product === latestCartItem.product) {
+                    item.count++
+                    console.log('One more ', item.product)
+                    break
+                  } else {
+                    itemsInCart.push({
+                      product: latestCartItem.product,
+                      price: latestCartItem.price,
+                      count: 1,
+                    })
+                    console.log('Added ', latestCartItem.product)
+                    
+                  }
+                })
               }
-
-              itemsInCart.push({
-                product: latestCartItem.product,
-                price: latestCartItem.price,
-              })
+            
+              // If the cart is not empty, check if the latest added product is already in the itemsInCart
+              // for(var i = 0; i < itemsInCartCount; i++) {
+              //   if (itemsInCart[i].product === latestCartItem.product) {
+              //     itemsInCart[i].count++
+              //     break
+              //   } else {
+              //     itemsInCart.push({
+              //       product: latestCartItem.product,
+              //       price: latestCartItem.price,
+              //       count: 1,
+              //     })
+              //     console.log(latestCartItem.product, i, itemsInCartCount)
+              //     break
+              //   } 
+              // }
 
               let cartTotalOnClick = 0
 
