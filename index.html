@@ -26,8 +26,13 @@
 
       <section>
         <h2>Items in cart</h2>
-
         <p>There are <span id="cart-count">0</span> items in your cart.</p>
+        <ul id="cart">
+          <li>
+            HI!!
+          </li>
+        </ul>
+
         <div>Total: $<span id="cart-total">0</span></div>
       </section>
     </main>
@@ -125,6 +130,8 @@
               document.getElementById(
                 'cart-total'
               ).innerText = cartTotalOnClick.toFixed(2)
+
+              console.log(itemsInCart)
             })
           }
         )
