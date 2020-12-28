@@ -27,11 +27,7 @@
       <section>
         <h2>Items in cart</h2>
         <p>There are <span id="cart-count">0</span> items in your cart.</p>
-        <ul id="cart">
-          <li>
-            HI!!
-          </li>
-        </ul>
+        <ul id="cart-list"></ul>
 
         <div>Total: $<span id="cart-total">0</span></div>
       </section>
@@ -132,6 +128,15 @@
               ).innerText = cartTotalOnClick.toFixed(2)
 
               console.log(itemsInCart)
+
+              const cartListElement = document.getElementById('cart-list')
+
+              itemsInCart.forEach((item) => {
+                const cartListItem = document.createElement('li')
+                cartListItem.innerText = `${item.product} ($${item.price})`
+                cartListElement.appendChild(cartListItem)
+                
+              });
             })
           }
         )
