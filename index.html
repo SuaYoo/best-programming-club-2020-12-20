@@ -130,12 +130,15 @@
                   count: 1,
                 })
                 console.log(latestCartItem.product, 'is the first item to be added')
-              // If the cart is not empty
-              } else {              
-                itemsInCart.forEach((item) => {
-                  if (item.product === latestCartItem.product) {
-                    item.count++
-                    console.log('One more ', item.product)
+              } else {
+                for (let i = 0; i < itemsInCartCount; i++) {
+
+                  // IF THE PRODUCTS ARE BEING ADDED MULTIPLE TIMES, IT DOESN'T REGISTER IT'S THE SAME PRODUCTS
+                  // EXCEPT FOR THE VERY FIRST PRODUCT THAT'S ADDED TO THE CART
+                  // I SUSPECT THE IF STATEMENT AND THE FOR LOOP BREAK ARE BOTH THE CULPRIT
+                  if (itemsInCart[i].product === latestCartItem.product) {
+                    itemsInCart[i].count++
+                    console.log('One more ', itemsInCart[i].product)
                     break
                   } else {
                     itemsInCart.push({
@@ -143,11 +146,27 @@
                       price: latestCartItem.price,
                       count: 1,
                     })
-                    console.log('Added ', latestCartItem.product)
-                    
+                    console.log('i =', i, '; itemsInCartCount =', itemsInCartCount)
+                    break
                   }
-                })
-              }
+
+                }}
+            
+
+              //   itemsInCart.forEach((item) => {
+              //     if (item.product === latestCartItem.product) {
+              //       item.count++
+              //       console.log('One more ', item.product)
+              //     } else {
+              //       itemsInCart.push({
+              //         product: latestCartItem.product,
+              //         price: latestCartItem.price,
+              //         count: 1,
+              //       })
+              //       console.log('Added ', latestCartItem.product)
+              //     } 
+              //   })
+              // }
             
               // If the cart is not empty, check if the latest added product is already in the itemsInCart
               // for(var i = 0; i < itemsInCartCount; i++) {
