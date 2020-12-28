@@ -115,12 +115,25 @@
             button.addEventListener('click', () => {
               console.log('clicked add to cart')
 
-              itemsInCart.push({
+              const itemsInCartCount = itemsInCart.length
+
+              const latestCartItem = {
                 product: button.dataset.product,
                 price: Number(button.dataset.price),
-              })
+              }
 
-              const itemsInCartCount = itemsInCart.length
+              // Checking if the button product is already in the itemsInCart
+              for(var i = 0; i < itemsInCartCount; i++) {
+                if (itemsInCart[i].product == latestCartItem.product) {
+                  console.log('Already here!!!!!')
+                  break
+                }
+              }
+
+              itemsInCart.push({
+                product: latestCartItem.product,
+                price: latestCartItem.price,
+              })
 
               let cartTotalOnClick = 0
 
@@ -137,13 +150,10 @@
               console.log(itemsInCart)
 
               const cartListItemElement = document.createElement('li')
-              const latestCartItem = {
-                product: itemsInCart[itemsInCart.length - 1].product,
-                price:itemsInCart[itemsInCart.length - 1].price,
-              }
-
               cartListItemElement.innerText = `${latestCartItem.product} ($${latestCartItem.price})`
               cartListElement.appendChild(cartListItemElement)
+
+              
               
             })
           }
