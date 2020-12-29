@@ -61,6 +61,12 @@
         ],
       }
 
+      function removeAllChildNodes(parent){
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild)
+        }
+      }
+
       function initializeProducts() {
         function makeProductList(productData, listElementId) {
           const listElement = document.getElementById(listElementId)
@@ -105,6 +111,14 @@
 
         const cartListElement = document.getElementById('cart-list')
 
+        function addToCart(array, item) {
+          array.push({
+          product: item.product,
+          price: item.price,
+          count: 1,
+          })
+        }
+
         Array.from(document.querySelectorAll('.add-to-cart')).forEach(
           (button) => {
             button.addEventListener('click', () => {
@@ -122,19 +136,12 @@
 
               // Check if the cart is empty
               if (itemsInCart.length === 0) {
-                itemsInCart.push({
-                  product: latestCartItem.product,
-                  price: latestCartItem.price,
-                  count: 1,
-                })
+                addToCart(itemsInCart, latestCartItem)
                 isInCart = true
-                // console.log(latestCartItem.product, 'is the first item to be added')
               } else {
-                // Cart is not empty,
-                // Check if the same type of product already exists
+                // Cart isn't empty, so is the same type of product already exist?
                 for (let i=0; i < itemsInCartCount; i++) {
                   if (itemsInCart[i].product === latestCartItem.product) {
-                    // console.log('ONE MORE ', itemsInCart[i].product)
                     itemsInCart[i].count++
                     isInCart = true
                     break
@@ -144,11 +151,7 @@
 
               // Adding new type of product to cart
               if (isInCart === false) {
-                itemsInCart.push({
-                  product: latestCartItem.product,
-                  price: latestCartItem.price,
-                  count: 1,
-                })
+                addToCart(itemsInCart, latestCartItem)
                 isInCart = true
               }
 
@@ -166,12 +169,8 @@
 
               console.log(itemsInCart)
 
-              // Every button click, the product gets added to the cart view list
-              // const cartListItemElement = document.createElement('li')
-              // cartListItemElement.innerText = `${latestCartItem.product} ($${latestCartItem.price})`
-              // cartListElement.appendChild(cartListItemElement)
-
-              cartListElement.innerHTML = ''
+              // Removes the old cart view in HTML
+              removeAllChildNodes(cartListElement)
               // Displays every single items inside itemsInCart
               itemsInCart.forEach((item) => {
                 const cartListItemElement = document.createElement('li')
