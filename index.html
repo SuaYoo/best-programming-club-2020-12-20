@@ -124,7 +124,7 @@
             button.addEventListener('click', () => {
               console.log('clicked add to cart')
               
-              const itemsInCartCount = itemsInCart.length
+              const typesOfItemsInCart = itemsInCart.length
 
               const latestCartItem = {
                 product: button.dataset.product,
@@ -140,7 +140,7 @@
                 isInCart = true
               } else {
                 // Cart isn't empty, so is the same type of product already exist?
-                for (let i=0; i < itemsInCartCount; i++) {
+                for (let i=0; i < typesOfItemsInCart; i++) {
                   if (itemsInCart[i].product === latestCartItem.product) {
                     itemsInCart[i].count++
                     isInCart = true
@@ -148,7 +148,7 @@
                   }
                 }
               }
-
+ 
               // Adding new type of product to cart
               if (isInCart === false) {
                 addToCart(itemsInCart, latestCartItem)
@@ -161,7 +161,12 @@
                 cartTotalOnClick = cartTotalOnClick + ( item.price * item.count )
               })
 
-              document.getElementById('cart-count').innerText = itemsInCartCount
+              var cartCount = 0
+              itemsInCart.forEach((item) =>{
+                cartCount += item.count
+              })
+
+              document.getElementById('cart-count').innerText = cartCount
 
               document.getElementById(
                 'cart-total'
@@ -171,7 +176,7 @@
 
               // Removes the old cart view in HTML
               removeAllChildNodes(cartListElement)
-              // Displays every single items inside itemsInCart
+              // New cart view by displaying every single items inside itemsInCart
               itemsInCart.forEach((item) => {
                 const cartListItemElement = document.createElement('li')
                 cartListItemElement.innerText = `${item.product} ($${item.price} / per) x ${item.count} = ${(item.price * item.count).toFixed(2)}`
