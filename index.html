@@ -101,7 +101,18 @@
       }
 
       function initializeCart() {
-        const itemsInCart = []
+        const itemsInCart = [
+          {
+            product: 'Apple',
+            price: 0.40,
+            count: 2,
+          },
+          {
+            product: 'Banana',
+            price: 0.20,
+            count: 3,
+          },
+        ]
 
         const cartListElement = document.getElementById('cart-list')
 
@@ -114,13 +125,15 @@
           (button) => {
             button.addEventListener('click', () => {
               console.log('clicked add to cart')
-
+              
               const itemsInCartCount = itemsInCart.length
 
               const latestCartItem = {
                 product: button.dataset.product,
                 price: Number(button.dataset.price),
               }
+
+              let isInCart = false
 
               // Check if the cart is empty
               if (itemsInCart.length === 0) {
@@ -129,60 +142,32 @@
                   price: latestCartItem.price,
                   count: 1,
                 })
+                isInCart = true
                 console.log(latestCartItem.product, 'is the first item to be added')
+                console.log(isInCart)
               } else {
-                for (let i = 0; i < itemsInCartCount; i++) {
-
-                  // IF THE PRODUCTS ARE BEING ADDED MULTIPLE TIMES, IT DOESN'T REGISTER IT'S THE SAME PRODUCTS
-                  // EXCEPT FOR THE VERY FIRST PRODUCT THAT'S ADDED TO THE CART
-                  // I SUSPECT THE IF STATEMENT AND THE FOR LOOP BREAK ARE BOTH THE CULPRIT
+                // the cart is not empty,
+                // check if the clicked product already exists in the cart
+                for (let i=0; i < itemsInCartCount; i++) {
                   if (itemsInCart[i].product === latestCartItem.product) {
+                    console.log('ONE MORE ', itemsInCart[i].product)
                     itemsInCart[i].count++
-                    console.log('One more ', itemsInCart[i].product)
-                    break
-                  } else {
-                    itemsInCart.push({
-                      product: latestCartItem.product,
-                      price: latestCartItem.price,
-                      count: 1,
-                    })
-                    console.log('i =', i, '; itemsInCartCount =', itemsInCartCount)
+                    isInCart = true
+                    console.log(isInCart)
                     break
                   }
+                }
+              }
 
-                }}
-            
-
-              //   itemsInCart.forEach((item) => {
-              //     if (item.product === latestCartItem.product) {
-              //       item.count++
-              //       console.log('One more ', item.product)
-              //     } else {
-              //       itemsInCart.push({
-              //         product: latestCartItem.product,
-              //         price: latestCartItem.price,
-              //         count: 1,
-              //       })
-              //       console.log('Added ', latestCartItem.product)
-              //     } 
-              //   })
-              // }
-            
-              // If the cart is not empty, check if the latest added product is already in the itemsInCart
-              // for(var i = 0; i < itemsInCartCount; i++) {
-              //   if (itemsInCart[i].product === latestCartItem.product) {
-              //     itemsInCart[i].count++
-              //     break
-              //   } else {
-              //     itemsInCart.push({
-              //       product: latestCartItem.product,
-              //       price: latestCartItem.price,
-              //       count: 1,
-              //     })
-              //     console.log(latestCartItem.product, i, itemsInCartCount)
-              //     break
-              //   } 
-              // }
+              // Adding new product
+              if (isInCart === false) {
+                itemsInCart.push({
+                  product: latestCartItem.product,
+                  price: latestCartItem.price,
+                  count: 1,
+                })
+                isInCart = true
+              }
 
               let cartTotalOnClick = 0
 
@@ -198,6 +183,7 @@
 
               console.log(itemsInCart)
 
+              //every button click, the product gets added to the cart view list
               const cartListItemElement = document.createElement('li')
               cartListItemElement.innerText = `${latestCartItem.product} ($${latestCartItem.price})`
               cartListElement.appendChild(cartListItemElement)
