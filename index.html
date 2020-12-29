@@ -147,7 +147,7 @@
                 console.log(isInCart)
               } else {
                 // the cart is not empty,
-                // check if the clicked product already exists in the cart
+                // check if the same type of product already exists
                 for (let i=0; i < itemsInCartCount; i++) {
                   if (itemsInCart[i].product === latestCartItem.product) {
                     console.log('ONE MORE ', itemsInCart[i].product)
@@ -159,7 +159,7 @@
                 }
               }
 
-              // Adding new product
+              // Adding new type of product to cart
               if (isInCart === false) {
                 itemsInCart.push({
                   product: latestCartItem.product,
@@ -172,7 +172,7 @@
               let cartTotalOnClick = 0
 
               itemsInCart.forEach((item) => {
-                cartTotalOnClick = cartTotalOnClick += item.price
+                cartTotalOnClick = cartTotalOnClick + ( item.price * item.count )
               })
 
               document.getElementById('cart-count').innerText = itemsInCartCount
