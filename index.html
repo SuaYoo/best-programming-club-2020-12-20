@@ -102,16 +102,16 @@
 
       function initializeCart() {
         const itemsInCart = [
-          {
-            product: 'Apple',
-            price: 0.40,
-            count: 2,
-          },
-          {
-            product: 'Banana',
-            price: 0.20,
-            count: 3,
-          },
+          // {
+          //   product: 'Apple',
+          //   price: 0.40,
+          //   count: 2,
+          // },
+          // {
+          //   product: 'Banana',
+          //   price: 0.20,
+          //   count: 3,
+          // },
         ]
 
         const cartListElement = document.getElementById('cart-list')
@@ -133,6 +133,7 @@
                 price: Number(button.dataset.price),
               }
 
+              // This will keep track if the prodcut has been added to itemsInCart
               let isInCart = false
 
               // Check if the cart is empty
@@ -143,17 +144,15 @@
                   count: 1,
                 })
                 isInCart = true
-                console.log(latestCartItem.product, 'is the first item to be added')
-                console.log(isInCart)
+                // console.log(latestCartItem.product, 'is the first item to be added')
               } else {
-                // the cart is not empty,
-                // check if the same type of product already exists
+                // Cart is not empty,
+                // Check if the same type of product already exists
                 for (let i=0; i < itemsInCartCount; i++) {
                   if (itemsInCart[i].product === latestCartItem.product) {
-                    console.log('ONE MORE ', itemsInCart[i].product)
+                    // console.log('ONE MORE ', itemsInCart[i].product)
                     itemsInCart[i].count++
                     isInCart = true
-                    console.log(isInCart)
                     break
                   }
                 }
@@ -183,13 +182,11 @@
 
               console.log(itemsInCart)
 
-              //every button click, the product gets added to the cart view list
-              const cartListItemElement = document.createElement('li')
-              cartListItemElement.innerText = `${latestCartItem.product} ($${latestCartItem.price})`
-              cartListElement.appendChild(cartListItemElement)
-
-              
-              
+              itemsInCart.forEach((item) => {
+                const cartListItemElement = document.createElement('li')
+                cartListItemElement.innerText = `${item.product} ($${item.price} / per) x ${item.count}`
+                cartListElement.appendChild(cartListItemElement)
+              })
             })
           }
         )
