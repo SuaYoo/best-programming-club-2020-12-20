@@ -2,12 +2,11 @@
 
 ## Kim's BYO-Assignment: Add Detailed Cart View ##
 
-I wanted to display what was inside the cart, by listing how many of each products were chosen. This was harder than I initially thought, to be honest, but I eventually got it to work! 
+I wanted to display what was inside the cart, by listing how many of each products were chosen.
 
-First, There is a `count` key in each product object in `itemsInCart`. As each product is added, the count goes up. So `itemsInCart` is no longer a list of objects that are sometimes multiples of the same, as we select multiple of one type of product. It is a short list with each objects its own counter. 
+First, There is a `count` key in each product object in `itemsInCart`. As each product is added, the count goes up. So `itemsInCart` is no longer a list of objects that are sometimes multiples of the same, as we select multiple of one type of product. It is now a short list with each objects its own counter. 
 
-To add a prodcut to `itemsInCart`, we need to check if the cart is empty.
-If it's not empty, then check if the selected product's type already exists in the cart. If we determine this is a new product, then we'll add a new product object. I keep track of all these different conditions with a boolean variable, `isInCart`.
+To add a prodcut to `itemsInCart`, check if the cart is empty. If it's not empty, then check if the selected product's type already exists in `itemsInCart` using a for loop. If we determine this is a new product, then we'll add a new product object. I keep track of all these different conditions with a boolean variable, `isInCart`.
 
 <!-- Before going into datails of adding products to `itemsInCart`, there is a boolean variable `isInCart`. It shows whether the selected product has been counted. This will become helpful in keeping track when we are determing if the selected product's type already exists in `itemsInCart` or not. 
 
