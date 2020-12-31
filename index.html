@@ -143,9 +143,37 @@
               }
  
               // Adding new type of product to cart
-              if (isInCart === false) {
+              if (isInCart) {
+                // Update cart view with existing product, by finding the
+                // existing list item by ID
+                const cartListItemElement = document.getElementById(productId)
+
+                cartListItemElement.innerText = `${latestCartItem.product} ($${
+                  latestCartItem.price
+                } / per) x ${latestCartItem.count} = ${(
+                  latestCartItem.price * latestCartItem.count
+                ).toFixed(2)}`
+                // cartListElement.appendChild(cartListItemElement)
+              } else {
+                // Set initial count
+                latestCartItem.count = 1
+
                 addToCart(itemsInCart, latestCartItem)
                 isInCart = true
+
+                // Update cart view with new product
+                const cartListItemElement = document.createElement('li')
+
+                // We need to set an ID (or class) on the newly created list item
+                // so that we can find it later to update the existing list item
+                cartListItemElement.id = productId
+
+                cartListItemElement.innerText = `${latestCartItem.product} ($${
+                  latestCartItem.price
+                } / per) x ${latestCartItem.count} = ${(
+                  latestCartItem.price * latestCartItem.count
+                ).toFixed(2)}`
+                cartListElement.appendChild(cartListItemElement)
               }
 
               let cartTotalOnClick = 0
