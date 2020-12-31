@@ -134,18 +134,11 @@
               // This will keep track if the prodcut has been added to itemsInCart
               let isInCart = false
 
-              // Check if the cart is empty
-              if (itemsInCart.length === 0) {
-                addToCart(itemsInCart, latestCartItem)
-                isInCart = true
-              } else {
-                // Cart isn't empty, so is the same type of product already exist?
-                for (let i=0; i < typesOfItemsInCart; i++) {
-                  if (itemsInCart[i].product === latestCartItem.product) {
-                    itemsInCart[i].count++
-                    isInCart = true
-                    break
-                  }
+              for (let i = 0; i < typesOfItemsInCart; i++) {
+                if (itemsInCart[i].product === latestCartItem.product) {
+                  itemsInCart[i].count++
+                  isInCart = true
+                  break
                 }
               }
  
