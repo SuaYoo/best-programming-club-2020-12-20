@@ -134,25 +134,46 @@
               // This will keep track if the prodcut has been added to itemsInCart
               let isInCart = false
 
-              // Check if the cart is empty
-              if (itemsInCart.length === 0) {
-                addToCart(itemsInCart, latestCartItem)
-                isInCart = true
-              } else {
-                // Cart isn't empty, so is the same type of product already exist?
-                for (let i=0; i < typesOfItemsInCart; i++) {
-                  if (itemsInCart[i].product === latestCartItem.product) {
-                    itemsInCart[i].count++
-                    isInCart = true
-                    break
-                  }
+              for (let i = 0; i < typesOfItemsInCart; i++) {
+                if (itemsInCart[i].product === latestCartItem.product) {
+                  itemsInCart[i].count++
+                  isInCart = true
+                  break
                 }
               }
  
               // Adding new type of product to cart
-              if (isInCart === false) {
+              if (isInCart) {
+                // Update cart view with existing product, by finding the
+                // existing list item by ID
+                const cartListItemElement = document.getElementById(productId)
+
+                cartListItemElement.innerText = `${latestCartItem.product} ($${
+                  latestCartItem.price
+                } / per) x ${latestCartItem.count} = ${(
+                  latestCartItem.price * latestCartItem.count
+                ).toFixed(2)}`
+                // cartListElement.appendChild(cartListItemElement)
+              } else {
+                // Set initial count
+                latestCartItem.count = 1
+
                 addToCart(itemsInCart, latestCartItem)
                 isInCart = true
+
+                // Update cart view with new product
+                const cartListItemElement = document.createElement('li')
+
+                // We need to set an ID (or class) on the newly created list item
+                // so that we can find it later to update the existing list item
+                cartListItemElement.id = productId
+
+                cartListItemElement.innerText = `${latestCartItem.product} ($${
+                  latestCartItem.price
+                } / per) x ${latestCartItem.count} = ${(
+                  latestCartItem.price * latestCartItem.count
+                ).toFixed(2)}`
+                cartListElement.appendChild(cartListItemElement)
               }
 
               let cartTotalOnClick = 0
@@ -174,14 +195,6 @@
 
               console.log(itemsInCart)
 
-              // Removes the old cart view in HTML
-              removeAllChildNodes(cartListElement)
-              // New cart view by displaying every single items inside itemsInCart
-              itemsInCart.forEach((item) => {
-                const cartListItemElement = document.createElement('li')
-                cartListItemElement.innerText = `${item.product} ($${item.price} / per) x ${item.count} = ${(item.price * item.count).toFixed(2)}`
-                cartListElement.appendChild(cartListItemElement)
-              })
             })
           }
         )
