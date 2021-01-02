@@ -1,5 +1,11 @@
 # best-programming-club-2020-12-20
 
+## User Interface
+
+![User Interface Mock up of the detailed shopping cart and product list. It looks a bit minimalistic with cheerful color scheme of orange, greyish brown, lime green, pink and mostly white. It looks pretty cute.](/img/cart_mockup.png "Current mock up of the online farmers' market and detailed cart view.")
+
+I took photographs of produce and basket icon from the internet. Refer to the sources at the bottom of this page for credits.
+
 ## Kim's BYO-Assignment: Add Detailed Cart View ##
 
 I wanted to display what was inside the cart, by listing how many of each products were chosen.
@@ -48,3 +54,18 @@ rename cart variable
 - Actively ask the Discord channels for help!
 - Google as much as you can, using the keywords you've learned. For example, search _"how to create HTML from javascript"_ or _"what is javascript forEach"_ or _"what is javascript dataset"_. MDN is a great keyword to include in your searches for reference materal, for example _"MDN javascript array"_.
 - Don't be afraid to commit code that's not working yet.
+
+#### Sources for photographs
+
+[Add to Cart Icon] (https://www.rawshorts.com/freeicons/?download=add-to-cart-icon)
+
+[Apple] (https://fineartamerica.com/featured/apples-for-sale-at-a-farmers-market-edwin-remsberg.html)
+
+[Banana] (https://www.pinterest.com/pin/858991328906408783/)
+
+[Broccoli] (https://www.thespruceeats.com/all-about-broccoli-2215869)
+
+[Squash] (https://www.wideopeneats.com/summer-squash/)
+
+[Carrots] (https://www.encirclephotos.com/image/multi-color-carrots-at-farmers-market-in-vancouver-canada/)
+
