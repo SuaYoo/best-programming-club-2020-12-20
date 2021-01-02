@@ -60,15 +60,15 @@ rename cart variable
 
 #### Sources for photographs
 
-[Add to Cart Icon] (https://www.rawshorts.com/freeicons/?download=add-to-cart-icon)
+[Add to Cart Icon](https://www.rawshorts.com/freeicons/?download=add-to-cart-icon)
 
-[Apple] (https://fineartamerica.com/featured/apples-for-sale-at-a-farmers-market-edwin-remsberg.html)
+[Apple](https://fineartamerica.com/featured/apples-for-sale-at-a-farmers-market-edwin-remsberg.html)
 
-[Banana] (https://www.pinterest.com/pin/858991328906408783/)
+[Banana](https://www.pinterest.com/pin/858991328906408783/)
 
-[Broccoli] (https://www.thespruceeats.com/all-about-broccoli-2215869)
+[Broccoli](https://www.thespruceeats.com/all-about-broccoli-2215869)
 
-[Squash] (https://www.wideopeneats.com/summer-squash/)
+[Squash](https://www.wideopeneats.com/summer-squash/)
 
-[Carrots] (https://www.encirclephotos.com/image/multi-color-carrots-at-farmers-market-in-vancouver-canada/)
+[Carrots](https://www.encirclephotos.com/image/multi-color-carrots-at-farmers-market-in-vancouver-canada/)
 
