@@ -4,7 +4,9 @@
 
 ![User Interface Mock up of the detailed shopping cart and product list. It looks a bit minimalistic with cheerful color scheme of orange, greyish brown, lime green, pink and mostly white. It looks pretty cute.](/img/cart_mockup.png "Current mock up of the online farmers' market and detailed cart view.")
 
-I took photographs of produce and basket icon from the internet. Refer to the sources at the bottom of this page for credits.
+I was going for an online farmers market page, geared towards a younger demographic. Inspired by Animal Crossing, Cooking Mama, but not too cheeky. I used [Adobe Color](https://color.adobe.com/create/color-wheel) to get a color scheme for this.
+
+*I took photographs of produce and basket icon from the internet. Refer to the sources at the bottom of this page for credits. 
 
 ## Kim's BYO-Assignment: Add Detailed Cart View ##
 
@@ -16,7 +18,8 @@ To add a prodcut to `itemsInCart`, check if the cart is empty. If it's not empty
 
 <!-- Before going into datails of adding products to `itemsInCart`, there is a boolean variable `isInCart`. It shows whether the selected product has been counted. This will become helpful in keeping track when we are determing if the selected product's type already exists in `itemsInCart` or not. 
 
-To add a product to `itemsInCart`, we first need to check if the cart is empty. If it is, then we add a new product object to `itemsInCart`, with initial `count: 1`. We also set `isInCart = true`. If it's not empty, then we start checking if each of the existing product matches with the selected. We do this with a for loop, that will initially set out to look through every single object, but it'll break if we find the matching product. If we find the matching product, we only increment the `count` key 
+To add a product to
+ `itemsInCart`, we first need to check if the cart is empty. If it is, then we add a new product object to `itemsInCart`, with initial `count: 1`. We also set `isInCart = true`. If it's not empty, then we start checking if each of the existing product matches with the selected. We do this with a for loop, that will initially set out to look through every single object, but it'll break if we find the matching product. If we find the matching product, we only increment the `count` key 
 
 To add a prodcut to `itemsInCart`, we need to check if the cart is empty.
 If it's not empty, then check if the selected product's type already exists in the cart. If we determine this is a new product, then we'll add a new product object. I keep track of all these different conditions with a boolean variable, `isInCart`.
