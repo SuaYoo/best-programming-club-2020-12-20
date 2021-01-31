@@ -3,36 +3,34 @@
   <head>
     <meta charset="utf-8" />
     <title>Farmer's Market</title>
+    <!-- Import React and react-dom dependencies: -->
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <!-- Import Babel to enable JSX: -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   </head>
   <body>
     <header>
       <h1>Farmer's Market</h1>
     </header>
 
-    <main>
-      <section id="products">
-        <h2>Products</h2>
+    <main id="app-root"></main>
 
-        <section class="product-sub-section">
-          <h3>Available fruit</h3>
-          <ul id="available-fruit-list"></ul>
-        </section>
-
-        <section class="product-sub-section">
-          <h3>Available vegetables</h3>
-          <ul id="available-vegetable-list"></ul>
-        </section>
-      </section>
-
-      <section>
-        <h2>Items in cart</h2>
-
-        <p>There are <span id="cart-count">0</span> items in your cart.</p>
-        <div>Total: $<span id="cart-total">0</span></div>
-      </section>
-    </main>
-
-    <script>
+    <!-- Note, we're able to use JSX here because we're loading the 
+    `<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>` 
+    script and added `type="text/babel"` to our existing script tag. 
+    (See: https://reactjs.org/docs/add-react-to-a-website.html) 
+    
+    Normally, if you just add the React library, you won't be able to use JSX. 
+    You don't need to worry about enabling JSX when you create an app with 
+    Create React App since the tool handles it for us. -->
+    <script type="text/babel">
       const availableProductsData = {
         fruit: [
           {
@@ -60,82 +58,138 @@
         ],
       }
 
-      function initializeProducts() {
-        function makeProductList(productData, listElementId) {
-          const listElement = document.getElementById(listElementId)
+      // Create a component named "App" that will handle
+      // showing available producrs and updating the cart.
+      //
+      // Note: You can create a React component multiple ways.
+      // Instead of using a class, you can create a function
+      // named "App" ("function component"). However, this
+      // changes how you set and update state.
+      // Read more about the difference between "class" and
+      // "function" components:
+      // https://reactjs.org/docs/components-and-props.html
+      class App extends React.Component {
+        // "constructor" and "super" are reserved JavaScript keywords,
+        // they're not unique to our component or React. They're used
+        // here to set up our class component.
+        constructor(props) {
+          super(props)
 
-          productData.forEach((itemData) => {
-            const listItemElement = document.createElement('li')
-
-            // The value for `innerText` that you see here is using what's called
-            // "template literals". This syntax allows you to join multiple strings
-            // together by embedding dynamic variables in a string.
-            //
-            // This is the same thing as doing:
-            //   itemData.product + ' ($' + itemData.price + ')'
-            // Try both ways!
-            //
-            // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
-            listItemElement.innerText = `${itemData.product} ($${itemData.price})`
-
-            listElement.appendChild(listItemElement)
-
-            const buttonElement = document.createElement('button')
-
-            buttonElement.classList.add('add-to-cart')
-            buttonElement.dataset.product = itemData.product
-            buttonElement.dataset.price = itemData.price
-            buttonElement.innerText = 'Add +1 to cart'
-
-            listItemElement.appendChild(buttonElement)
-          })
+          // This is the interesting part: how we set the
+          // initial (or default) value of our component
+          // state. Read more about component state:
+          // https://reactjs.org/docs/state-and-lifecycle.html#adding-local-state-to-a-class
+          this.state = {
+            itemsInCart: [],
+            cartTotal: 0,
+          }
         }
 
-        // Make product list for fruit
-        makeProductList(availableProductsData.fruit, 'available-fruit-list')
-        makeProductList(
-          availableProductsData.vegetables,
-          'available-vegetable-list'
-        )
-      }
+        // The "render" function is how we tell React what to
+        // render when using a class component.
+        // In a function component, we just return everything
+        // inside of the "render", for example:
+        //
+        // function App() {
+        //   const { itemsInCart, cartTotal } = this.state
+        //   // ...truncated for brevity
+        //   return (
+        //     <div>
+        //       <section>
+        //         <h2>Products</h2>
+        //         // ...truncated for brevity
+        render() {
+          // Here, we're accessing the state values so we can
+          // render them. The initial values of will be set to
+          // what we declared in the "constructor" function.
+          const { itemsInCart, cartTotal } = this.state
 
-      function initializeCart() {
-        const itemsInCart = []
+          // "addToCart" is a function we've made that will update
+          // the state in response to a button click.
+          const addToCart = (item) => {
+            const itemPrice = Number(item.price)
+            // "slice" is used to create a copy of the items in cart
+            // in our state. That's because we want to aim to create
+            // copies of our state before modifying them instead of
+            // modifying state directly. This is good practice for
+            // when we start to work with more complicated state,
+            // because it allows us to do things like "undo" state
+            // changes. This concept is called immutability.
+            // Read more about immutability here:
+            // https://flaviocopes.com/react-immutability/
+            const itemsInCart = this.state.itemsInCart.slice()
 
-        Array.from(document.querySelectorAll('.add-to-cart')).forEach(
-          (button) => {
-            button.addEventListener('click', () => {
-              console.log('clicked add to cart')
+            itemsInCart.push(item)
 
-              itemsInCart.push({
-                product: button.dataset.product,
-                price: Number(button.dataset.price),
-              })
-
-              const itemsInCartCount = itemsInCart.length
-
-              let cartTotalOnClick = 0
-
-              itemsInCart.forEach((item) => {
-                cartTotalOnClick = cartTotalOnClick += item.price
-              })
-
-              document.getElementById('cart-count').innerText = itemsInCartCount
-
-              document.getElementById(
-                'cart-total'
-              ).innerText = cartTotalOnClick.toFixed(2)
+            // "setState" is how we tell React to update the state
+            this.setState({
+              itemsInCart: itemsInCart,
+              // Refactor note: We may want to refactor "cartTotal"
+              // out from the state in the future, because we can
+              // actually determine the total just from the value of
+              // "itemsInCart" in our state. Although this option is
+              // easier now, as our app state becomes more complex,
+              // it may be harder to remember to update both the
+              // items in cart and the cart total at once.
+              cartTotal: this.state.cartTotal + itemPrice,
             })
           }
-        )
+
+          return (
+            <div>
+              <section>
+                <h2>Products</h2>
+
+                <section className="product-sub-section">
+                  <h3>Available fruit</h3>
+                  <ul>
+                    {availableProductsData.fruit.map((item) => (
+                      <li key={item.product}>
+                        {item.product} (${item.price}){' '}
+                        <button onClick={() => addToCart(item)}>
+                          Add +1 to cart
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+
+                <section className="product-sub-section">
+                  <h3>Available vegetables</h3>
+                  <ul>
+                    {availableProductsData.vegetables.map((item) => (
+                      <li key={item.product}>
+                        {item.product} (${item.price}){' '}
+                        <button onClick={() => addToCart(item)}>
+                          Add +1 to cart
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              </section>
+
+              <section>
+                <h2>Items in cart</h2>
+
+                <p>
+                  There are <span>{itemsInCart.length}</span> items in your
+                  cart.
+                </p>
+                <div>
+                  Total: $<span>{cartTotal.toFixed(2)}</span>
+                </div>
+              </section>
+            </div>
+          )
+        }
       }
 
-      document.addEventListener('DOMContentLoaded', (event) => {
-        console.log('DOM ready')
-
-        initializeProducts()
-        initializeCart()
-      })
+      // This is how you add React components to your HTML page.
+      // If you created an app with Create React App, CRA will
+      // take care of this part for you.
+      const root = document.querySelector('#app-root')
+      ReactDOM.render(<App />, root)
     </script>
   </body>
 </html>
