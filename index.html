@@ -18,28 +18,7 @@
       <h1>Farmer's Market</h1>
     </header>
 
-    <main>
-      <section id="products">
-        <h2>Products</h2>
-
-        <section class="product-sub-section">
-          <h3>Available fruit</h3>
-          <ul id="available-fruit-list"></ul>
-        </section>
-
-        <section class="product-sub-section">
-          <h3>Available vegetables</h3>
-          <ul id="available-vegetable-list"></ul>
-        </section>
-      </section>
-
-      <section>
-        <h2>Items in cart</h2>
-
-        <p>There are <span id="cart-count">0</span> items in your cart.</p>
-        <div>Total: $<span id="cart-total">0</span></div>
-      </section>
-    </main>
+    <main id="app-root"></main>
 
     <script type="text/babel">
       const availableProductsData = {
@@ -68,6 +47,41 @@
           },
         ],
       }
+
+      function App() {
+        return (
+          <div>
+            <section id="products">
+              <h2>Products</h2>
+
+              <section className="product-sub-section">
+                <h3>Available fruit</h3>
+                <ul id="available-fruit-list"></ul>
+              </section>
+
+              <section className="product-sub-section">
+                <h3>Available vegetables</h3>
+                <ul id="available-vegetable-list"></ul>
+              </section>
+            </section>
+
+            <section>
+              <h2>Items in cart</h2>
+
+              <p>
+                There are <span id="cart-count">0</span> items in your cart.
+              </p>
+              <div>
+                Total: $<span id="cart-total">0</span>
+              </div>
+            </section>
+          </div>
+        )
+      }
+
+      const root = document.querySelector('#app-root')
+
+      ReactDOM.render(<App />, root)
 
       function initializeProducts() {
         function makeProductList(productData, listElementId) {
