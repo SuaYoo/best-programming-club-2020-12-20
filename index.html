@@ -26,8 +26,9 @@
 
       <section>
         <h2>Items in cart</h2>
-
         <p>There are <span id="cart-count">0</span> items in your cart.</p>
+        <ul id="cart-list"></ul>
+
         <div>Total: $<span id="cart-total">0</span></div>
       </section>
     </main>
@@ -58,6 +59,12 @@
             price: '0.30',
           },
         ],
+      }
+
+      function removeAllChildNodes(parent){
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild)
+        }
       }
 
       function initializeProducts() {
@@ -102,29 +109,92 @@
       function initializeCart() {
         const itemsInCart = []
 
+        const cartListElement = document.getElementById('cart-list')
+
+        function addToCart(array, item) {
+          array.push({
+          product: item.product,
+          price: item.price,
+          count: 1,
+          })
+        }
+
         Array.from(document.querySelectorAll('.add-to-cart')).forEach(
           (button) => {
             button.addEventListener('click', () => {
               console.log('clicked add to cart')
+              
+              const typesOfItemsInCart = itemsInCart.length
 
-              itemsInCart.push({
+              const latestCartItem = {
                 product: button.dataset.product,
                 price: Number(button.dataset.price),
-              })
+              }
 
-              const itemsInCartCount = itemsInCart.length
+              // This will keep track if the prodcut has been added to itemsInCart
+              let isInCart = false
+
+              for (let i = 0; i < typesOfItemsInCart; i++) {
+                if (itemsInCart[i].product === latestCartItem.product) {
+                  itemsInCart[i].count++
+                  isInCart = true
+                  break
+                }
+              }
+ 
+              // Adding new type of product to cart
+              if (isInCart) {
+                // Update cart view with existing product, by finding the
+                // existing list item by ID
+                const cartListItemElement = document.getElementById(productId)
+
+                cartListItemElement.innerText = `${latestCartItem.product} ($${
+                  latestCartItem.price
+                } / per) x ${latestCartItem.count} = ${(
+                  latestCartItem.price * latestCartItem.count
+                ).toFixed(2)}`
+                // cartListElement.appendChild(cartListItemElement)
+              } else {
+                // Set initial count
+                latestCartItem.count = 1
+
+                addToCart(itemsInCart, latestCartItem)
+                isInCart = true
+
+                // Update cart view with new product
+                const cartListItemElement = document.createElement('li')
+
+                // We need to set an ID (or class) on the newly created list item
+                // so that we can find it later to update the existing list item
+                cartListItemElement.id = productId
+
+                cartListItemElement.innerText = `${latestCartItem.product} ($${
+                  latestCartItem.price
+                } / per) x ${latestCartItem.count} = ${(
+                  latestCartItem.price * latestCartItem.count
+                ).toFixed(2)}`
+                cartListElement.appendChild(cartListItemElement)
+              }
 
               let cartTotalOnClick = 0
 
               itemsInCart.forEach((item) => {
-                cartTotalOnClick = cartTotalOnClick += item.price
+                cartTotalOnClick = cartTotalOnClick + ( item.price * item.count )
               })
 
-              document.getElementById('cart-count').innerText = itemsInCartCount
+              var cartCount = 0
+              itemsInCart.forEach((item) =>{
+                cartCount += item.count
+              })
+
+              document.getElementById('cart-count').innerText = cartCount
 
               document.getElementById(
                 'cart-total'
               ).innerText = cartTotalOnClick.toFixed(2)
+
+              console.log(itemsInCart)
+
             })
           }
         )
