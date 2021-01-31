@@ -20,6 +20,14 @@
 
     <main id="app-root"></main>
 
+    <!-- Note, we're able to use JSX here because we're loading the 
+    `<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>` 
+    script and added `type="text/babel"` to our existing script tag. 
+    (See: https://reactjs.org/docs/add-react-to-a-website.html) 
+    
+    Normally, if you just add the React library, you won't be able to use JSX. 
+    You don't need to worry about enabling JSX when you create an app with 
+    Create React App since the tool handles it for us. -->
     <script type="text/babel">
       const availableProductsData = {
         fruit: [
