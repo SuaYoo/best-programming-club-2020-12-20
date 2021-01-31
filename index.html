@@ -48,117 +48,84 @@
         ],
       }
 
-      function App() {
-        return (
-          <div>
-            <section id="products">
-              <h2>Products</h2>
+      class App extends React.Component {
+        constructor(props) {
+          super(props)
 
-              <section className="product-sub-section">
-                <h3>Available fruit</h3>
-                <ul id="available-fruit-list"></ul>
+          this.state = {
+            itemsInCart: [],
+            cartTotal: 0,
+          }
+        }
+
+        addToCart(item) {
+          const itemPrice = Number(item.price)
+          const itemsInCart = this.state.itemsInCart.slice()
+
+          itemsInCart.push(item)
+
+          this.setState({
+            itemsInCart: itemsInCart,
+            cartTotal: this.state.cartTotal + itemPrice,
+          })
+        }
+
+        render() {
+          const { itemsInCart, cartTotal } = this.state
+
+          return (
+            <div>
+              <section id="products">
+                <h2>Products</h2>
+
+                <section className="product-sub-section">
+                  <h3>Available fruit</h3>
+                  <ul>
+                    {availableProductsData.fruit.map((item) => (
+                      <li key={item.product}>
+                        {item.product} (${item.price}){' '}
+                        <button onClick={() => this.addToCart(item)}>
+                          Add +1 to cart
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+
+                <section className="product-sub-section">
+                  <h3>Available vegetables</h3>
+                  <ul>
+                    {availableProductsData.vegetables.map((item) => (
+                      <li key={item.product}>
+                        {item.product} (${item.price}){' '}
+                        <button onClick={() => this.addToCart(item)}>
+                          Add +1 to cart
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               </section>
 
-              <section className="product-sub-section">
-                <h3>Available vegetables</h3>
-                <ul id="available-vegetable-list"></ul>
+              <section>
+                <h2>Items in cart</h2>
+
+                <p>
+                  There are <span>{itemsInCart.length}</span> items in your
+                  cart.
+                </p>
+                <div>
+                  Total: $<span>{cartTotal.toFixed(2)}</span>
+                </div>
               </section>
-            </section>
-
-            <section>
-              <h2>Items in cart</h2>
-
-              <p>
-                There are <span id="cart-count">0</span> items in your cart.
-              </p>
-              <div>
-                Total: $<span id="cart-total">0</span>
-              </div>
-            </section>
-          </div>
-        )
+            </div>
+          )
+        }
       }
 
       const root = document.querySelector('#app-root')
 
       ReactDOM.render(<App />, root)
-
-      function initializeProducts() {
-        function makeProductList(productData, listElementId) {
-          const listElement = document.getElementById(listElementId)
-
-          productData.forEach((itemData) => {
-            const listItemElement = document.createElement('li')
-
-            // The value for `innerText` that you see here is using what's called
-            // "template literals". This syntax allows you to join multiple strings
-            // together by embedding dynamic variables in a string.
-            //
-            // This is the same thing as doing:
-            //   itemData.product + ' ($' + itemData.price + ')'
-            // Try both ways!
-            //
-            // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
-            listItemElement.innerText = `${itemData.product} ($${itemData.price})`
-
-            listElement.appendChild(listItemElement)
-
-            const buttonElement = document.createElement('button')
-
-            buttonElement.classList.add('add-to-cart')
-            buttonElement.dataset.product = itemData.product
-            buttonElement.dataset.price = itemData.price
-            buttonElement.innerText = 'Add +1 to cart'
-
-            listItemElement.appendChild(buttonElement)
-          })
-        }
-
-        // Make product list for fruit
-        makeProductList(availableProductsData.fruit, 'available-fruit-list')
-        makeProductList(
-          availableProductsData.vegetables,
-          'available-vegetable-list'
-        )
-      }
-
-      function initializeCart() {
-        const itemsInCart = []
-
-        Array.from(document.querySelectorAll('.add-to-cart')).forEach(
-          (button) => {
-            button.addEventListener('click', () => {
-              console.log('clicked add to cart')
-
-              itemsInCart.push({
-                product: button.dataset.product,
-                price: Number(button.dataset.price),
-              })
-
-              const itemsInCartCount = itemsInCart.length
-
-              let cartTotalOnClick = 0
-
-              itemsInCart.forEach((item) => {
-                cartTotalOnClick = cartTotalOnClick += item.price
-              })
-
-              document.getElementById('cart-count').innerText = itemsInCartCount
-
-              document.getElementById(
-                'cart-total'
-              ).innerText = cartTotalOnClick.toFixed(2)
-            })
-          }
-        )
-      }
-
-      document.addEventListener('DOMContentLoaded', (event) => {
-        console.log('DOM ready')
-
-        initializeProducts()
-        initializeCart()
-      })
     </script>
   </body>
 </html>
