@@ -3,6 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <title>Farmer's Market</title>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
   </head>
   <body>
     <header>
@@ -32,7 +41,7 @@
       </section>
     </main>
 
-    <script>
+    <script type="text/babel">
       const availableProductsData = {
         fruit: [
           {
